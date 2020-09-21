@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<script type=module src=./evented-cache-api.js></script>
+<script type=module>
+  import {caches, Cache, CacheStorage} from './evented-cache-api.js'
+
+  void async function() {
+    console.assert(caches instanceof CacheStorage, 'Invalid caches.')
+
+    await caches.delete('evented-cache-api')
+
+    let cacheNames = await caches.keys()
+    let deleted = !cacheNames.includes('evented-cache-api')
+    console.assert(deleted, 'evented-cache-api was not deleted')
+
+    let cacheEvent
+    caches.addEventListener('cache', e => cacheEvent = e, {once: true})
+
+    let cache = await caches.open('evented-cache-api')
+    console.assert(cache instanceof Cache, 'Cache not valid.')
+    console.assert(cacheEvent, 'Cache event not fired.')
+
+    let responseEvent
+    cache.addEventListener('response', e => responseEvent = e, {once: true})
+
+    await cache.add('./test.html')
+    let match = await cache.match('./test.html')
+
+    console.assert(match instanceof Response, 'Response not valid.')
+    console.assert(responseEvent, 'Response event not fired.')
+  }()
+</script>
