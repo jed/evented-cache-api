@@ -2,7 +2,7 @@
 
 ## Usage
 
-This library is a drop-in wrapper around the browser's CacheStorage and Cache APIs, adding the following events:
+This library is a drop-in wrapper around the browser's [CacheStorage](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage) and [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) APIs. It adds the following events, a la [StorageEvent](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event):
 
 - `cache`: dispatched to the **caches** object when a cache is added or removed. the `details` property of the dispatched `CustomEvent` contains two properties: `name` for the name of the cache, and `cache` for its value (`null` when deleted).
 - `response`: dispatched to an individual cache when a response is updated. the `details` property of the dispatched `CustomEvent` contains two properties: `request` for the request updated, and `response` for its value (`null` when deleted).
