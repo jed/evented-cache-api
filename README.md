@@ -17,13 +17,13 @@ void async function() {
   // listen for a cache event when the cache is created
   caches.addEventListener('cache', e => console.log(e.detail))
 
-  // the following logs {name: 'test', cache: EventTarget}
+  // the following logs {name: 'test', cache: [EventTarget]}
   let cache = await caches.open('test')
 
   // listen for a response event when the response is created
   cache.addEventListener('response', e => console.log(e.detail))
 
-  // the following logs {request: './hello.html', response: Response}
+  // the following logs {request: './hello.html', response: [Response]}
   await cache.put('hello.html', new Response('world'))
 
   // the following logs {request: './hello.html', response: null}
