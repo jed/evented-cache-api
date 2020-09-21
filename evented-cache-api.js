@@ -94,4 +94,4 @@ export class Cache extends EventTarget {
   }
 }
 
-export const caches = new CacheStorage(window.caches)
+export const caches = new CacheStorage(self.caches)
